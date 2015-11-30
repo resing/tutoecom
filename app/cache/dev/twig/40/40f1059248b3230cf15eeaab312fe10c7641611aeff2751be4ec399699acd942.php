@@ -21,31 +21,33 @@ class __TwigTemplate_5e21adc987ff7ef976fefde69ba5a30c19fe73cf518a22dbd39624bdd9f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7f889430d2c5064752d640e06c8ac4555c23d2c790300fc60633cb5d70278210 = $this->env->getExtension("native_profiler");
-        $__internal_7f889430d2c5064752d640e06c8ac4555c23d2c790300fc60633cb5d70278210->enter($__internal_7f889430d2c5064752d640e06c8ac4555c23d2c790300fc60633cb5d70278210_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "front/index.html.twig"));
+        $__internal_75e7293c7f7c57d5dba0e76f83d3b4ac2caa1a315a1fd105f98929af310d8120 = $this->env->getExtension("native_profiler");
+        $__internal_75e7293c7f7c57d5dba0e76f83d3b4ac2caa1a315a1fd105f98929af310d8120->enter($__internal_75e7293c7f7c57d5dba0e76f83d3b4ac2caa1a315a1fd105f98929af310d8120_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "front/index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_7f889430d2c5064752d640e06c8ac4555c23d2c790300fc60633cb5d70278210->leave($__internal_7f889430d2c5064752d640e06c8ac4555c23d2c790300fc60633cb5d70278210_prof);
+        $__internal_75e7293c7f7c57d5dba0e76f83d3b4ac2caa1a315a1fd105f98929af310d8120->leave($__internal_75e7293c7f7c57d5dba0e76f83d3b4ac2caa1a315a1fd105f98929af310d8120_prof);
 
     }
 
     // line 3
     public function block_body($context, array $blocks = array())
     {
-        $__internal_5a59924d16c83ca0278a64b6280eff74388f5f4f6b7a6ccc6e7eb5408ab23382 = $this->env->getExtension("native_profiler");
-        $__internal_5a59924d16c83ca0278a64b6280eff74388f5f4f6b7a6ccc6e7eb5408ab23382->enter($__internal_5a59924d16c83ca0278a64b6280eff74388f5f4f6b7a6ccc6e7eb5408ab23382_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_5c08f5da317eabadd8870891aac9e380e70561acfbe85ce6846e89681f25d6b1 = $this->env->getExtension("native_profiler");
+        $__internal_5c08f5da317eabadd8870891aac9e380e70561acfbe85ce6846e89681f25d6b1->enter($__internal_5c08f5da317eabadd8870891aac9e380e70561acfbe85ce6846e89681f25d6b1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        echo "<div class=\"banner\"> </div>
-<div class=\"content\" id=\"content\">";
-        // line 5
-        echo twig_escape_filter($this->env, (isset($context["name"]) ? $context["name"] : $this->getContext($context, "name")), "html", null, true);
-        echo "</div>
+        echo "<div class=\"banner\"> 
+  <div class=\"container\">\t
+    <h1>Our clothing , your comfort</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+</div>
+<div class=\"content\" id=\"content\"></div>
 
 ";
         
-        $__internal_5a59924d16c83ca0278a64b6280eff74388f5f4f6b7a6ccc6e7eb5408ab23382->leave($__internal_5a59924d16c83ca0278a64b6280eff74388f5f4f6b7a6ccc6e7eb5408ab23382_prof);
+        $__internal_5c08f5da317eabadd8870891aac9e380e70561acfbe85ce6846e89681f25d6b1->leave($__internal_5c08f5da317eabadd8870891aac9e380e70561acfbe85ce6846e89681f25d6b1_prof);
 
     }
 
@@ -61,13 +63,18 @@ class __TwigTemplate_5e21adc987ff7ef976fefde69ba5a30c19fe73cf518a22dbd39624bdd9f
 
     public function getDebugInfo()
     {
-        return array (  43 => 5,  40 => 4,  34 => 3,  11 => 2,);
+        return array (  40 => 4,  34 => 3,  11 => 2,);
     }
 }
 /* {# empty Twig template #}*/
 /* {% extends 'layout.html.twig' %}*/
 /* {% block body %}*/
-/* <div class="banner"> </div>*/
-/* <div class="content" id="content">{{name}}</div>*/
+/* <div class="banner"> */
+/*   <div class="container">	*/
+/*     <h1>Our clothing , your comfort</h1>*/
+/*     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>*/
+/*   </div>*/
+/* </div>*/
+/* <div class="content" id="content"></div>*/
 /* */
 /* {% endblock %}*/

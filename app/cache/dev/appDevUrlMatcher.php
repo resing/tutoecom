@@ -184,8 +184,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // site_frontoffice_default_index
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'site_frontoffice_default_index')), array (  '_controller' => 'Site\\FrontOfficeBundle\\Controller\\DefaultController::indexAction',));
+        if ($pathinfo === '/home') {
+            return array (  '_controller' => 'Site\\FrontOfficeBundle\\Controller\\DefaultController::indexAction',  '_route' => 'site_frontoffice_default_index',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
