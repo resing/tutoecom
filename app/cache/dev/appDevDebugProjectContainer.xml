@@ -18,10 +18,12 @@
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="AppBundle">AppBundle\AppBundle</parameter>
       <parameter key="SiteFrontOfficeBundle">Site\FrontOfficeBundle\SiteFrontOfficeBundle</parameter>
+      <parameter key="StofDoctrineExtensionsBundle">Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
+      <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">appDevDebugProjectContainer</parameter>
@@ -540,6 +542,28 @@
     <parameter key="sensio_framework_extra.converter.doctrine.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter</parameter>
     <parameter key="sensio_framework_extra.converter.datetime.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter</parameter>
     <parameter key="sensio_framework_extra.view.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener</parameter>
+    <parameter key="stof_doctrine_extensions.event_listener.locale.class">Stof\DoctrineExtensionsBundle\EventListener\LocaleListener</parameter>
+    <parameter key="stof_doctrine_extensions.event_listener.logger.class">Stof\DoctrineExtensionsBundle\EventListener\LoggerListener</parameter>
+    <parameter key="stof_doctrine_extensions.event_listener.blame.class">Stof\DoctrineExtensionsBundle\EventListener\BlameListener</parameter>
+    <parameter key="stof_doctrine_extensions.uploadable.manager.class">Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager</parameter>
+    <parameter key="stof_doctrine_extensions.uploadable.mime_type_guesser.class">Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter</parameter>
+    <parameter key="stof_doctrine_extensions.uploadable.default_file_info.class">Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo</parameter>
+    <parameter key="stof_doctrine_extensions.default_locale">fr_FR</parameter>
+    <parameter key="stof_doctrine_extensions.default_file_path">null</parameter>
+    <parameter key="stof_doctrine_extensions.translation_fallback">true</parameter>
+    <parameter key="stof_doctrine_extensions.persist_default_translation">false</parameter>
+    <parameter key="stof_doctrine_extensions.skip_translation_on_load">false</parameter>
+    <parameter key="stof_doctrine_extensions.uploadable.validate_writable_directory">true</parameter>
+    <parameter key="stof_doctrine_extensions.listener.translatable.class">Gedmo\Translatable\TranslatableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.timestampable.class">Gedmo\Timestampable\TimestampableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.blameable.class">Gedmo\Blameable\BlameableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.sluggable.class">Gedmo\Sluggable\SluggableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.tree.class">Gedmo\Tree\TreeListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.loggable.class">Gedmo\Loggable\LoggableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.sortable.class">Gedmo\Sortable\SortableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.softdeleteable.class">Gedmo\SoftDeleteable\SoftDeleteableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.uploadable.class">Gedmo\Uploadable\UploadableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.reference_integrity.class">Gedmo\ReferenceIntegrity\ReferenceIntegrityListener</parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -602,13 +626,13 @@
         <parameter>db</parameter>
         <parameter>@Doctrine/Collector/db.html.twig</parameter>
       </parameter>
-      <parameter key="data_collector.security" type="collection">
-        <parameter>security</parameter>
-        <parameter>@Security/Collector/security.html.twig</parameter>
-      </parameter>
       <parameter key="swiftmailer.data_collector" type="collection">
         <parameter>swiftmailer</parameter>
         <parameter>@Swiftmailer/Collector/swiftmailer.html.twig</parameter>
+      </parameter>
+      <parameter key="data_collector.security" type="collection">
+        <parameter>security</parameter>
+        <parameter>@Security/Collector/security.html.twig</parameter>
       </parameter>
       <parameter key="data_collector.dump" type="collection">
         <parameter>dump</parameter>
@@ -1432,18 +1456,18 @@
       </call>
       <call method="add">
         <argument type="service">
-          <service class="Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector" public="false">
-            <tag name="data_collector" template="@Security/Collector/security.html.twig" id="security"/>
-            <argument type="service" id="security.token_storage" on-invalid="ignore"/>
-            <argument type="service" id="security.role_hierarchy"/>
+          <service class="Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector" public="false">
+            <tag name="data_collector" template="@Swiftmailer/Collector/swiftmailer.html.twig" id="swiftmailer" priority="245"/>
+            <argument type="service" id="service_container"/>
           </service>
         </argument>
       </call>
       <call method="add">
         <argument type="service">
-          <service class="Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector" public="false">
-            <tag name="data_collector" template="@Swiftmailer/Collector/swiftmailer.html.twig" id="swiftmailer"/>
-            <argument type="service" id="service_container"/>
+          <service class="Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector" public="false">
+            <tag name="data_collector" template="@Security/Collector/security.html.twig" id="security"/>
+            <argument type="service" id="security.token_storage" on-invalid="ignore"/>
+            <argument type="service" id="security.role_hierarchy"/>
           </service>
         </argument>
       </call>
@@ -1695,6 +1719,10 @@
         <argument>Sensio\Bundle\FrameworkExtraBundle\EventListener\SecurityListener</argument>
       </call>
       <call method="addSubscriberService">
+        <argument>stof_doctrine_extensions.event_listener.locale</argument>
+        <argument>Stof\DoctrineExtensionsBundle\EventListener\LocaleListener</argument>
+      </call>
+      <call method="addSubscriberService">
         <argument>debug.dump_listener</argument>
         <argument>Symfony\Component\HttpKernel\EventListener\DumpListener</argument>
       </call>
@@ -1729,7 +1757,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>565b1822e78773.02970994</argument>
+            <argument>565f57bb31f5d2.34938235</argument>
           </service>
         </argument>
       </argument>
@@ -1852,7 +1880,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>565b1822e78773.02970994</argument>
+            <argument>565f57bb31f5d2.34938235</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -2312,6 +2340,29 @@
       <argument type="service">
         <service class="Symfony\Bridge\Doctrine\ContainerAwareEventManager" public="false">
           <argument type="service" id="service_container"/>
+          <call method="addEventSubscriber">
+            <argument type="service">
+              <service class="Gedmo\Timestampable\TimestampableListener" public="false">
+                <tag name="doctrine.event_subscriber" connection="default"/>
+                <call method="setAnnotationReader">
+                  <argument type="service" id="annotation_reader"/>
+                </call>
+              </service>
+            </argument>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service">
+              <service class="Gedmo\Sluggable\SluggableListener" public="false">
+                <tag name="doctrine.event_subscriber" connection="default"/>
+                <call method="setAnnotationReader">
+                  <argument type="service" id="annotation_reader"/>
+                </call>
+              </service>
+            </argument>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service" id="stof_doctrine_extensions.listener.translatable"/>
+          </call>
           <call method="addEventListener">
             <argument type="collection">
               <argument>loadClassMetadata</argument>
@@ -2367,7 +2418,12 @@
       <argument type="service">
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
-            <argument type="collection"/>
+            <argument type="collection">
+              <argument key="GedmoTranslatable">Gedmo\Translatable\Entity</argument>
+              <argument key="GedmoTranslator">Gedmo\Translator\Entity</argument>
+              <argument key="GedmoLoggable">Gedmo\Loggable\Entity</argument>
+              <argument key="GedmoTree">Gedmo\Tree\Entity</argument>
+            </argument>
           </call>
           <call method="setMetadataCacheImpl">
             <argument type="service" id="doctrine_cache.providers.doctrine.orm.default_metadata_cache"/>
@@ -2380,7 +2436,64 @@
           </call>
           <call method="setMetadataDriverImpl">
             <argument type="service">
-              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false"/>
+              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translator\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Loggable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Tree\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gedmo\Translatable\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translator\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Loggable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Tree\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gedmo\Translator\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translator\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Loggable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Tree\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gedmo\Loggable\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translator\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Loggable\Entity</argument>
+                        <argument>C:\xampp\htdocs\tutoecom\vendor\gedmo\doctrine-extensions\lib\Gedmo\Tree\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gedmo\Tree\Entity</argument>
+                </call>
+              </service>
             </argument>
           </call>
           <call method="setProxyDir">
@@ -2400,7 +2513,7 @@
           </call>
           <call method="setNamingStrategy">
             <argument type="service">
-              <service class="Doctrine\ORM\Mapping\UnderscoreNamingStrategy" public="false"/>
+              <service class="Doctrine\ORM\Mapping\DefaultNamingStrategy" public="false"/>
             </argument>
           </call>
           <call method="setQuoteStrategy">
@@ -2464,6 +2577,47 @@
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
       <argument type="service" id="security.token_storage" on-invalid="null"/>
       <argument type="service" id="security.authorization_checker" on-invalid="null"/>
+    </service>
+    <service id="stof_doctrine_extensions.listener.translatable" class="Gedmo\Translatable\TranslatableListener" public="false">
+      <tag name="doctrine.event_subscriber" connection="default" priority="-10"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+      <call method="setDefaultLocale">
+        <argument>fr_FR</argument>
+      </call>
+      <call method="setTranslatableLocale">
+        <argument>fr_FR</argument>
+      </call>
+      <call method="setTranslationFallback">
+        <argument>true</argument>
+      </call>
+      <call method="setPersistDefaultLocaleTranslation">
+        <argument>false</argument>
+      </call>
+      <call method="setSkipOnLoad">
+        <argument>false</argument>
+      </call>
+    </service>
+    <service id="stof_doctrine_extensions.event_listener.locale" class="Stof\DoctrineExtensionsBundle\EventListener\LocaleListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="stof_doctrine_extensions.listener.translatable"/>
+    </service>
+    <service id="stof_doctrine_extensions.uploadable.manager" class="Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager">
+      <argument type="service">
+        <service class="Gedmo\Uploadable\UploadableListener" public="false">
+          <argument type="service">
+            <service class="Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter" public="false"/>
+          </argument>
+          <call method="setAnnotationReader">
+            <argument type="service" id="annotation_reader"/>
+          </call>
+          <call method="setDefaultFileInfoClass">
+            <argument>Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo</argument>
+          </call>
+        </service>
+      </argument>
+      <argument>Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo</argument>
     </service>
     <service id="data_collector.dump" class="Symfony\Component\HttpKernel\DataCollector\DumpDataCollector">
       <tag name="data_collector" id="dump" template="@Debug/Profiler/dump.html.twig"/>
@@ -2543,13 +2697,13 @@
           <argument>db</argument>
           <argument>@Doctrine/Collector/db.html.twig</argument>
         </argument>
-        <argument key="data_collector.security" type="collection">
-          <argument>security</argument>
-          <argument>@Security/Collector/security.html.twig</argument>
-        </argument>
         <argument key="swiftmailer.data_collector" type="collection">
           <argument>swiftmailer</argument>
           <argument>@Swiftmailer/Collector/swiftmailer.html.twig</argument>
+        </argument>
+        <argument key="data_collector.security" type="collection">
+          <argument>security</argument>
+          <argument>@Security/Collector/security.html.twig</argument>
         </argument>
         <argument key="data_collector.dump" type="collection">
           <argument>dump</argument>
