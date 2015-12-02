@@ -1,1 +1,4 @@
 306190,127.0.0.1,GET,http://127.0.0.1:200/tutoecom/web/app_dev.php/home,1449087002,,200
+1af55c,127.0.0.1,GET,http://127.0.0.1:200/tutoecom/web/app_dev.php/products.html,1449091272,7f01db,200
+7f01db,127.0.0.1,GET,http://127.0.0.1:200/tutoecom/web/app_dev.php/products.html,1449091272,,404
+d2f711,127.0.0.1,GET,http://127.0.0.1:200/tutoecom/web/app_dev.php/home,1449091326,,200
