@@ -6969,7 +6969,7 @@ list-style: none;
 	left: 2px;
 	width: 10px;
 	height: 7px;
-	background: url(../images/tick1.png) no-repeat;
+	background: url(../../images/tick1.png) no-repeat;
 	text-align: center;
 }
 .sky-form .radio input:checked + i:after,

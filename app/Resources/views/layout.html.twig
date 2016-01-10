@@ -33,8 +33,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         event.preventDefault();
                         $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
                 });
-        });
+                 
+    
+    });
 </script>
+
 <!--//slider-script-->
 <script>$(document).ready(function(c) {
 	$('.alert-close').on('click', function(c){
@@ -49,8 +52,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$('.message1').fadeOut('slow', function(c){
 	  		$('.message1').remove();
 		});
-	});	  
+	});
+        
+       
 });
+
+
+
 </script>
 </head>
 <div class="header">
@@ -66,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="products.html" > Products</a></li>
 						<li><a href="products.html" > Promotions</a></li>
 						<li><a href="#"><i></i></a>
-						<ul class="sub-icon1 list">
+						<ul class="sub-icon1 list" id="test">
 						  <h3>Recently added items(2)</h3>
 						  <div class="shopping_cart">
 							  <div class="cart_box">
@@ -100,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--script-->
 				<script>
 					$("span.menu").click(function(){
-						$(".top-nav ul").slideToggle(500, function(){
+						$(".top-nav ul").slideToggle(100, function(){
 						});
 					});
 			</script>

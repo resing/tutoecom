@@ -20,12 +20,12 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "leafo/scssphp": "^0.5.1",
         "patchwork/jsqueeze": "~1.0",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "fzaninotto/faker": "^1.5",
         "stof/doctrine-extensions-bundle": "^1.2"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "scripts": {
         "post-install-cmd": [

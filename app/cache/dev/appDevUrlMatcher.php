@@ -174,6 +174,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // site_backoffice_default_index
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'site_backoffice_default_index')), array (  '_controller' => 'Site\\BackOfficeBundle\\Controller\\DefaultController::indexAction',));
+        }
+
         // homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
@@ -186,6 +191,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // site_frontoffice_default_index
         if ($pathinfo === '/home') {
             return array (  '_controller' => 'Site\\FrontOfficeBundle\\Controller\\DefaultController::indexAction',  '_route' => 'site_frontoffice_default_index',);
+        }
+
+        // site_frontoffice_default_listproduct
+        if ($pathinfo === '/product') {
+            return array (  '_controller' => 'Site\\FrontOfficeBundle\\Controller\\DefaultController::listproductAction',  '_route' => 'site_frontoffice_default_listproduct',);
+        }
+
+        // single_product
+        if (0 === strpos($pathinfo, '/single') && preg_match('#^/single/(?P<slug>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'single_product')), array (  '_controller' => 'Site\\FrontOfficeBundle\\Controller\\DefaultController::singleAction',));
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

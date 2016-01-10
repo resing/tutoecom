@@ -1,3 +1,8 @@
+site_back_office:
+    resource: "@SiteBackOfficeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 site_front_office:
     resource: "@SiteFrontOfficeBundle/Controller/"
     type:     annotation
